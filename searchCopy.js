@@ -76,6 +76,7 @@ function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{
 function navi()
 {
     var buttArray = document.getElementsByClassName("clicky");
+    var ifArr = document.getElementsByClassName("butts");
     var curr = 0;
 
     window.onkeydown= function(e)
@@ -86,13 +87,37 @@ function navi()
             // document.getElementById('demo').innerHTML = "Up";
             if (curr > 0)
                 curr--;
+            else
+                curr = buttArray.length -1;
 
         }else if (key == 40) {
             //focus on next vid
             // document.getElementById('demo').innerHTML = "downz";
-            if (curr < buttArray.length)
+            if (curr < buttArray.length -1)
                 curr++;
+            else
+                curr = 0;
             
+        }else if (key == 13 && curr != 0)
+        {
+            // document.getElementById('demo').innerHTML = "enter";
+            //play or pause vid
+
+            if ((ifArr[curr-1].src).indexOf("&autoplay=1") == -1)
+            {
+                play(curr);
+                buttArray[curr].innerHTML = "Press OK to Stop";
+            }
+            else
+            {
+                // (ifArr[curr-1].src).replace("&autoplay=1", "");
+                ifArr[curr-1].src = (ifArr[curr-1].src).slice(0, (ifArr[curr-1].src).indexOf("&autoplay=1"));
+                //pause video
+                // ifArr[curr-1].pauseVideo();
+                document.ifArr[curr-1].contentWindow.location.reload();
+                buttArray[curr].innerHTML = "Press OK to Play";
+            }
+                
         }
         setTimeout((buttArray[curr]).focus(), 100);
 
@@ -112,7 +137,8 @@ function play(curr)
 {
     var ifArr = document.getElementsByClassName("butts");
     // play butts(curr-1)
-    $(ifArr[curr-1]).append(autoplay)
+    ifArr[curr-1].src += "&autoplay=1&autohide=0"; // "//www.youtube.com/watch?v=jHY5buYTu3c" //
+    // ifArr[curr-1].height = "480";
 
 }
 
@@ -124,5 +150,5 @@ function setMiddle(curr)
 
     // for play button
     var buttArray = document.getElementsByClassName("clicky");
-    //buttArray[curr].onClick = play(curr);
+    // buttArray[curr].onClick = play(curr);
 }
