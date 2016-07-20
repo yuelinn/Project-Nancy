@@ -16,7 +16,7 @@ function onClientLoad() {
 function onYouTubeApiLoad() {
     // This API key is intended for use only in this lesson.
     // See https://goo.gl/PdPA1 to get a key for your own applications.
-    gapi.client.setApiKey('MahAPIKey');
+    gapi.client.setApiKey('MahAPI');
     // document.getElementById("demo") = document.getElementById("searchBar").submit(); // elements[0].value;
     // search();
 
@@ -28,7 +28,8 @@ function onYouTubeApiLoad() {
         {
             //take the keyword and search;
             search(document.getElementById('apple').value + " eng sub");
-            document.getElementById('demo').innerHTML = document.getElementById('apple').value;
+            // document.getElementById('demo').innerHTML = document.getElementById('apple').value;
+            navigate();
         })
     })
 }
@@ -53,6 +54,7 @@ function onSearchResponse(response) {
     // showResponse(response);
     var ans = response.result;
     $("#ans").html("");
+    var it = 0;
     $.each(ans.items, retVid);
 }
 
@@ -68,3 +70,30 @@ function retVid(index, item)
 // for converting json to html
 // from fsquare
 function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+
+
+//to navigate only with arrows
+function navigate()
+{
+    var buttArray = document.getElementsByClassName("clicky");
+    var curr = 0;
+
+    window.onkeydown= function(e)
+    {
+        var key = e.keyCode ? e.keyCode : e.which;
+        if (key == 38) {
+            //focus on prev video
+            document.getElementById('demo').innerHTML = "Up";
+            if (curr > 0)
+                curr--;
+
+        }else if (key == 40) {
+            //focus on next vid
+            document.getElementById('demo').innerHTML = "downz";
+            if (curr < buttArray.length)
+                curr++;
+            
+        }
+        buttArray[curr].focus();
+    }
+}
