@@ -16,7 +16,7 @@ function onClientLoad() {
 function onYouTubeApiLoad() {
     // This API key is intended for use only in this lesson.
     // See https://goo.gl/PdPA1 to get a key for your own applications.
-    gapi.client.setApiKey('MahAPI');
+    gapi.client.setApiKey('MahAPIKey');
     // document.getElementById("demo") = document.getElementById("searchBar").submit(); // elements[0].value;
     // search();
 
@@ -29,7 +29,7 @@ function onYouTubeApiLoad() {
             //take the keyword and search;
             search(document.getElementById('apple').value + " eng sub");
             // document.getElementById('demo').innerHTML = document.getElementById('apple').value;
-            navigate();
+            navi();
         })
     })
 }
@@ -73,7 +73,7 @@ function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{
 
 
 //to navigate only with arrows
-function navigate()
+function navi()
 {
     var buttArray = document.getElementsByClassName("clicky");
     var curr = 0;
@@ -83,17 +83,46 @@ function navigate()
         var key = e.keyCode ? e.keyCode : e.which;
         if (key == 38) {
             //focus on prev video
-            document.getElementById('demo').innerHTML = "Up";
+            // document.getElementById('demo').innerHTML = "Up";
             if (curr > 0)
                 curr--;
 
         }else if (key == 40) {
             //focus on next vid
-            document.getElementById('demo').innerHTML = "downz";
+            // document.getElementById('demo').innerHTML = "downz";
             if (curr < buttArray.length)
                 curr++;
             
         }
-        buttArray[curr].focus();
+        setTimeout((buttArray[curr]).focus(), 100);
+
+        // set the search bar to empty
+        // if(curr == 0)
+        // {
+        //     //clear field
+        //     document.getElementById('apple').value = "";
+        // }
+
+        //set the video to be in the middle
+        setMiddle(curr);
     }
+}
+
+function play(curr)
+{
+    var ifArr = document.getElementsByClassName("butts");
+    // play butts(curr-1)
+    $(ifArr[curr-1]).append(autoplay)
+
+}
+
+function setMiddle(curr)
+{
+    // scroll to  top of vid
+    var ifArr = document.getElementsByClassName("item");
+    // ifArr[curr-1].scrollTop() = 0;
+
+    // for play button
+    var buttArray = document.getElementsByClassName("clicky");
+    //buttArray[curr].onClick = play(curr);
 }
